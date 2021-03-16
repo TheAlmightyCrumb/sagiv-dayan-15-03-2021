@@ -1,3 +1,4 @@
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Paper,
   Table,
@@ -8,10 +9,19 @@ import {
   TableRow,
 } from "@material-ui/core";
 
+const useStyles = makeStyles((theme) => ({
+  table: {
+    maxHeight: "280px",
+    overflow: "auto",
+  },
+}));
+
 export default function ProductTable({ children }) {
+  const classes = useStyles();
+
   return (
-    <TableContainer component={Paper}>
-      <Table>
+    <TableContainer className={classes.table} component={Paper}>
+      <Table stickyHeader size="small">
         <TableHead>
           <TableRow>
             <TableCell>Item Name</TableCell>
