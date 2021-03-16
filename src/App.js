@@ -1,56 +1,28 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormControl,
-  Grid,
-  InputAdornment,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-} from "@material-ui/core";
+import { Button, ButtonGroup, IconButton, Tab, Tabs } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faFileSignature,
+  faDollarSign,
   faPlus,
-  faStore,
-  faTag,
-  faTrashAlt,
-  faSignInAlt,
+  faShekelSign,
+  faShippingFast,
+  faTruckLoading,
 } from "@fortawesome/free-solid-svg-icons";
-import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
-import { addProduct, toggleProduct, updateCurrency } from "./actions";
+import { setViewState, updateCurrency, changeCurrencyView } from "./actions";
 import "./App.css";
+import AddItemDialog from "./components/AddItemDialog";
+import ProductRow from "./components/ProductRow";
+import ProductTable from "./components/ProductTable";
 
 function App() {
   const products = useSelector((state) => state.products);
   const stores = useSelector((state) => state.stores);
   const currency = useSelector((state) => state.currency);
+  const viewState = useSelector((state) => state.viewState);
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
-  const [formValues, setFormValues] = useState({
-    name: "",
-    price: "",
-    store: "",
-    estimatedArrivalDate: "",
-  });
-
-  const handleChangeFormValues = (event, key) => {
-    setFormValues((prev) => ({
-      ...prev,
-      [key]: event.target.value,
-    }));
-  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -60,27 +32,23 @@ function App() {
     setOpen(false);
   };
 
-  const handleClear = (e) => {
-    e.preventDefault();
-    setFormValues({
-      name: "",
-      price: "",
-      store: "",
-      estimatedArrivalDate: "",
-    });
+  const handleTabChange = (event, newValue) => {
+    dispatch(setViewState(newValue));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(addProduct(formValues));
-    setFormValues({
-      name: "",
-      price: "",
-      store: "",
-      estimatedArrivalDate: "",
-    });
-    handleClose();
-    console.log(stores);
+  const handleCurrencyChange = (newView) => {
+    dispatch(changeCurrencyView(newView));
+  };
+
+  const getVisibleItems = (items, filter) => {
+    switch (filter) {
+      case "SHOW_WAITING":
+        return items.filter((item) => !item.delivered);
+      case "SHOW_DELIVERED":
+        return items.filter((item) => item.delivered);
+      default:
+        return;
+    }
   };
 
   const fetchCurrencies = useCallback(() => {
@@ -97,135 +65,60 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  const visibleItems = getVisibleItems(products, viewState);
+
   return (
     <div className="App">
+      <Tabs
+        value={viewState}
+        onChange={handleTabChange}
+        variant="fullWidth"
+        indicatorColor="secondary"
+        textColor="secondary"
+      >
+        <Tab
+          icon={<FontAwesomeIcon icon={faShippingFast} />}
+          label="Ongoing"
+          value="SHOW_WAITING"
+        />
+        <Tab
+          icon={<FontAwesomeIcon icon={faTruckLoading} />}
+          label="Delivered"
+          value="SHOW_DELIVERED"
+        />
+      </Tabs>
       <Button
         onClick={handleClickOpen}
         startIcon={<FontAwesomeIcon icon={faPlus} />}
       >
         Add Item
       </Button>
-      <Dialog open={open} onClose={handleClose} fullWidth>
-        <DialogTitle>Add a New Item</DialogTitle>
-        <form onSubmit={handleSubmit}>
-          <DialogContent>
-            <FormControl>
-              <TextField
-                label="Item Name"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <FontAwesomeIcon icon={faFileSignature} />
-                    </InputAdornment>
-                  ),
-                }}
-                onChange={(e) => handleChangeFormValues(e, "name")}
-                value={formValues.name}
-                variant="outlined"
-              />
-            </FormControl>
-            <FormControl>
-              <TextField
-                label="Store"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <FontAwesomeIcon icon={faStore} />
-                    </InputAdornment>
-                  ),
-                }}
-                onChange={(e) => handleChangeFormValues(e, "store")}
-                value={formValues.store}
-                variant="outlined"
-              />
-            </FormControl>
-            <FormControl>
-              <TextField
-                label="Price"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <FontAwesomeIcon icon={faTag} />
-                    </InputAdornment>
-                  ),
-                }}
-                onChange={(e) => handleChangeFormValues(e, "price")}
-                value={formValues.price}
-                variant="outlined"
-              />
-            </FormControl>
-            <FormControl>
-              <TextField
-                label="Estimated Date of Arrival"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <FontAwesomeIcon icon={faCalendarCheck} />
-                    </InputAdornment>
-                  ),
-                }}
-                onChange={(e) =>
-                  handleChangeFormValues(e, "estimatedArrivalDate")
-                }
-                value={formValues.estimatedArrivalDate}
-                variant="outlined"
-              />
-            </FormControl>
-          </DialogContent>
-          <DialogActions>
-            <Grid container justify="space-between">
-              <Grid item>
-                <Button onClick={() => handleClose()} variant="outlined">
-                  Cancel
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  onClick={handleClear}
-                  variant="contained"
-                  startIcon={<FontAwesomeIcon icon={faTrashAlt} />}
-                >
-                  Clear
-                </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  startIcon={<FontAwesomeIcon icon={faSignInAlt} />}
-                >
-                  Submit
-                </Button>
-              </Grid>
-            </Grid>
-          </DialogActions>
-        </form>
-      </Dialog>
-      {products.length > 0 && (
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Item Name</TableCell>
-                <TableCell align="right">Store</TableCell>
-                <TableCell align="right">Price</TableCell>
-                <TableCell align="right">Estimated Arrival Time</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {products?.map((prod) => (
-                <TableRow key={prod.id}>
-                  <TableCell component="th" scope="row">
-                    {prod.name}
-                  </TableCell>
-                  <TableCell align="right">{prod.store}</TableCell>
-                  <TableCell align="right">{prod.price * currency}</TableCell>
-                  <TableCell align="right">
-                    {prod.estimatedArrivalDate}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      <AddItemDialog open={open} handleClose={handleClose} stores={stores} />
+      <div>
+        Currency:
+        <ButtonGroup variant="text" color="primary">
+          <IconButton
+            aria-label="ILS"
+            color={currency.view === "ILS" ? "primary" : "secondary"}
+            onClick={() => handleCurrencyChange("ILS")}
+          >
+            <FontAwesomeIcon icon={faShekelSign} />
+          </IconButton>
+          <IconButton
+            aria-label="USD"
+            color={currency.view === "USD" ? "primary" : "secondary"}
+            onClick={() => handleCurrencyChange("USD")}
+          >
+            <FontAwesomeIcon icon={faDollarSign} />
+          </IconButton>
+        </ButtonGroup>
+      </div>
+      {visibleItems.length > 0 && (
+        <ProductTable>
+          {visibleItems.map((prod) => (
+            <ProductRow key={prod.id} productDetails={prod} />
+          ))}
+        </ProductTable>
       )}
     </div>
   );

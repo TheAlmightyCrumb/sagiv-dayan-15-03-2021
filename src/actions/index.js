@@ -13,5 +13,16 @@ export const toggleProduct = (id) => ({
 
 export const updateCurrency = (newCurrency) => ({
     type: "UPDATE_CURRENCY",
-    currency: newCurrency
+    value: newCurrency
 })
+
+export const changeCurrencyView = (newView) => ({
+    type: "CHANGE_CURRENCY_VIEW",
+    view: newView
+})
+
+export const setViewState = (filter) => ({
+    type: "SET_VIEW_STATE",
+    filter
+  });
+  
