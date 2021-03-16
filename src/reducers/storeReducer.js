@@ -7,11 +7,11 @@ const storeReducer = (state = [], action) => {
               ? {
                   ...store,
                   quantity: store.quantity + 1,
-                  price: store.price + action.price,
+                  price: parseInt(store.price) + parseInt(action.price),
                 }
               : store;
           })
-        : [...state, { name: action.store, quantity: 1, price: action.price }];
+        : [...state, { name: action.store, quantity: 1, price: parseInt(action.price) }];
     default:
       return state;
   }

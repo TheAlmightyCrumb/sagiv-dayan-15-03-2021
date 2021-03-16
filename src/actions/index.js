@@ -10,3 +10,8 @@ export const toggleProduct = (id) => ({
     type: "TOGGLE",
     id
 })
+
+export const updateCurrency = (newCurrency) => ({
+    type: "UPDATE_CURRENCY",
+    currency: newCurrency
+})
