@@ -1,14 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Container } from "@material-ui/core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { setViewState, updateCurrency, changeCurrencyView } from "./actions";
-import AddItemDialog from "./components/AddItemDialog";
-import ProductRow from "./components/ProductRow";
-import ProductTable from "./components/ProductTable";
-import SecondBar from "./components/SecondBar";
+import { updateCurrency } from "./actions";
 import ThemeWrapper from "./components/ThemeWrapper";
 import ShopByProduct from "./components/ShopByProduct";
 import ShopByStore from "./components/ShopByStore";

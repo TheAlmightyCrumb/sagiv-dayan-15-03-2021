@@ -16,11 +16,11 @@ export default function ProductRow({ productDetails }) {
       <TableCell component="th" scope="row">
         {name}
       </TableCell>
-      <TableCell align="right">{store}</TableCell>
+      <TableCell align="left">{store}</TableCell>
       <TableCell align="right">{currency.view === "ILS" ? price * currency.value : price}</TableCell>
       <TableCell align="right">{estimatedArrivalDate}</TableCell>
       <TableCell align="center">
-        <Button onClick={() => handleToggleClick(productId)} variant="text">{delivered ? "Activate" : "Archive"}</Button>
+        <Button onClick={() => handleToggleClick(productId)} size="small" fullWidth variant="text">{delivered ? "Activate" : "Archive"}</Button>
       </TableCell>
     </TableRow>
   );

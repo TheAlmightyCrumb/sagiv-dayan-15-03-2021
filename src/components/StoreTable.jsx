@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductTable({ children }) {
+export default function StoreTable({ children }) {
   const classes = useStyles();
 
   return (
@@ -24,11 +24,9 @@ export default function ProductTable({ children }) {
       <Table stickyHeader size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Item Name</TableCell>
-            <TableCell align="left">Store</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Estimated Arrival Time</TableCell>
-            <TableCell colSpan={1} />
+            <TableCell>Store Name</TableCell>
+            <TableCell align="right">Quantity</TableCell>
+            <TableCell align="right">Total Price</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{children}</TableBody>
