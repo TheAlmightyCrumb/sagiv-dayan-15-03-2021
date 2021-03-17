@@ -21,7 +21,8 @@ import {
   faTrashAlt,
   faSignInAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
+import { KeyboardDatePicker } from "@material-ui/pickers";
+import { useSnackbar } from 'notistack';
 import { addProduct } from "../actions";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,21 +34,22 @@ const useStyles = makeStyles((theme) => ({
   },
   clearButton: {
     marginRight: theme.spacing(3),
-    color: red["A700"]
+    color: red["A700"],
   },
   submitButton: {
     color: green[500],
   },
 }));
 
-export default function AddItemDialog({ open, handleClose, stores }) {
+export default function AddItemDialog({ open, handleClose }) {
   const [formValues, setFormValues] = useState({
     name: "",
     price: "",
     store: "",
-    estimatedArrivalDate: "",
+    estimatedArrivalDate: new Date(),
   });
 
+  const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -55,6 +57,13 @@ export default function AddItemDialog({ open, handleClose, stores }) {
     setFormValues((prev) => ({
       ...prev,
       [key]: event.target.value,
+    }));
+  };
+
+  const handleDateChange = (date) => {
+    setFormValues((prev) => ({
+      ...prev,
+      estimatedArrivalDate: date,
     }));
   };
 
@@ -75,11 +84,14 @@ export default function AddItemDialog({ open, handleClose, stores }) {
       name: "",
       price: "",
       store: "",
-      estimatedArrivalDate: "",
+      estimatedArrivalDate: new Date(),
     });
     handleClose();
-    console.log(stores);
   };
+
+  const checkInputs = () => {
+
+  }
 
   return (
     <Dialog
@@ -151,22 +163,20 @@ export default function AddItemDialog({ open, handleClose, stores }) {
             </Grid>
             <Grid item sm={6} xs={6}>
               <FormControl>
-                <TextField
-                  className={classes.input}
+                <KeyboardDatePicker
+                  autoOk
+                  disableToolbar
                   margin="dense"
+                  variant="inline"
+                  inputVariant="outlined"
                   label="Estimated Date of Arrival"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <FontAwesomeIcon icon={faCalendarCheck} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  onChange={(e) =>
-                    handleChangeFormValues(e, "estimatedArrivalDate")
-                  }
                   value={formValues.estimatedArrivalDate}
-                  variant="outlined"
+                  format="dd/MM/yyyy"
+                  disablePast
+                  InputAdornmentProps={{
+                    position: "start",
+                  }}
+                  onChange={(date) => handleDateChange(date)}
                 />
               </FormControl>
             </Grid>

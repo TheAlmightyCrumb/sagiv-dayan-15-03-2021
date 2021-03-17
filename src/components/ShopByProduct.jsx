@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { Button, Typography } from "@material-ui/core";
+import { Button, LinearProgress, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddItemDialog from "./AddItemDialog";
 import ProductRow from "./ProductRow";
 import ProductTable from "./ProductTable";
 import SecondBar from "./SecondBar";
+import FakeStoreOptions from "./FakeStoreOptions";
 
 export default function ShopByProduct() {
   const products = useSelector((state) => state.products);
-  const stores = useSelector((state) => state.stores);
   const viewState = useSelector((state) => state.viewState);
 
   const [open, setOpen] = useState(false);
+  const [fakeStoreItems, setFakeStoreItems] = useState([]);
+  const [isWaiting, setIsWaiting] = useState(true);
+
+  const fetchStoreItems = useCallback(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((res) => setFakeStoreItems(res));
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,9 +44,15 @@ export default function ShopByProduct() {
 
   const visibleItems = getVisibleItems(products, viewState);
 
+  useEffect(() => {
+    console.log("HELLO!");
+    fetchStoreItems();
+    setIsWaiting(false);
+  }, []);
+
   return (
     <>
-      <AddItemDialog open={open} handleClose={handleClose} stores={stores} />
+      <AddItemDialog open={open} handleClose={handleClose} />
       <SecondBar />
       {visibleItems.length > 0 ? (
         <ProductTable>
@@ -60,6 +74,11 @@ export default function ShopByProduct() {
       >
         Add Item
       </Button>
+      {isWaiting ? (
+        <LinearProgress color="secondary" variant="query" />
+      ) : fakeStoreItems.length > 0 ? (
+        <FakeStoreOptions items={fakeStoreItems} />
+      ) : null}
     </>
   );
 }

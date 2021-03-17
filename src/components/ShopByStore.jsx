@@ -5,20 +5,28 @@ import { Typography } from "@material-ui/core";
 
 export default function ShopByStore() {
   const stores = useSelector((state) => state.stores);
+  const currency = useSelector((state) => state.currency);
 
   return (
     <>
-      {stores.length > 0 ? (
+      {stores.list.length > 0 ? (
         <StoreTable>
-          {stores.map((store) => (
+          {stores.list.map((store) => (
             <StoreRow key={store.name} storeDetails={store} />
           ))}
         </StoreTable>
       ) : (
         <Typography align="center" variant="h5" style={{ marginTop: "10px" }}>
-            Store list is empty, add items to fill it
+          Store list is empty, add items to fill it
         </Typography>
       )}
+      <br />
+      <Typography align="right">
+        Total:{" "}
+        {currency.view === "ILS"
+          ? stores.totalPrice * currency.value
+          : stores.totalPrice}
+      </Typography>
     </>
   );
 }
