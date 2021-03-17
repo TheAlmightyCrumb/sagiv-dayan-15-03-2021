@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/sagiv-dayan-15-03-2021/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/sagiv-dayan-15-03-2021/static/js/main.9852ddbb.chunk.js",
-    "main.js.map": "/sagiv-dayan-15-03-2021/static/js/main.9852ddbb.chunk.js.map",
+    "main.js": "/sagiv-dayan-15-03-2021/static/js/main.f589b699.chunk.js",
+    "main.js.map": "/sagiv-dayan-15-03-2021/static/js/main.f589b699.chunk.js.map",
     "runtime-main.js": "/sagiv-dayan-15-03-2021/static/js/runtime-main.17d27d6c.js",
     "runtime-main.js.map": "/sagiv-dayan-15-03-2021/static/js/runtime-main.17d27d6c.js.map",
-    "static/js/2.df33c210.chunk.js": "/sagiv-dayan-15-03-2021/static/js/2.df33c210.chunk.js",
-    "static/js/2.df33c210.chunk.js.map": "/sagiv-dayan-15-03-2021/static/js/2.df33c210.chunk.js.map",
+    "static/js/2.58738f7f.chunk.js": "/sagiv-dayan-15-03-2021/static/js/2.58738f7f.chunk.js",
+    "static/js/2.58738f7f.chunk.js.map": "/sagiv-dayan-15-03-2021/static/js/2.58738f7f.chunk.js.map",
     "static/js/3.15d44f7b.chunk.js": "/sagiv-dayan-15-03-2021/static/js/3.15d44f7b.chunk.js",
     "static/js/3.15d44f7b.chunk.js.map": "/sagiv-dayan-15-03-2021/static/js/3.15d44f7b.chunk.js.map",
     "index.html": "/sagiv-dayan-15-03-2021/index.html",
     "static/css/main.6dea0f05.chunk.css.map": "/sagiv-dayan-15-03-2021/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.df33c210.chunk.js.LICENSE.txt": "/sagiv-dayan-15-03-2021/static/js/2.df33c210.chunk.js.LICENSE.txt"
+    "static/js/2.58738f7f.chunk.js.LICENSE.txt": "/sagiv-dayan-15-03-2021/static/js/2.58738f7f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.17d27d6c.js",
-    "static/js/2.df33c210.chunk.js",
+    "static/js/2.58738f7f.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.9852ddbb.chunk.js"
+    "static/js/main.f589b699.chunk.js"
   ]
 }
