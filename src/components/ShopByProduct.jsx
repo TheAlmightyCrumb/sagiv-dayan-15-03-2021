@@ -65,7 +65,7 @@ export default function ShopByProduct() {
   }, []);
 
   return (
-    <>
+      <>
       <AddItemDialog open={open} handleClose={handleClose} />
       <SecondBar />
       {visibleItems.length > 0 ? (

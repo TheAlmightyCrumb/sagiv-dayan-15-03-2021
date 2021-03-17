@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# Shopping Tracker - Herolo Assignment
+<img width="85%" src="./appview.png" />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to my Shopping Tracker - a simple application that helps you not getting all over the place with spending money while shopping. You simply add the item with its details to the list, and you can easily see how much you spend, where you spend it, and what things you tend to buy. You can also gather your online orders and mark them to see what has already arrived and what is still on its way.
 
-## Available Scripts
+The application is made with responsive UI design using Google's Material-UI, and consistently updates the ILS/USD rates.
 
-In the project directory, you can run:
+---
 
-### `yarn start`
+## **Structure**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The Project consists of two main dashboards - Products Tracking, and Stores Tracking. The transition between these dashboards uses React Router, where each dashboard has its own route, and a tabs navigation menu.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Navigation Bar - has two links for the corresponding routes, and a currency view of either USD or ILS.
 
-### `yarn test`
+Products Tracking - this dashboard has its own menu, two tabs to filter the displayed products, a tab for the delivered ones, and another tab for the ongoing orders. The user has an option to add items from a list, and a button that allows him/her to fill details and add an item to the list. Each item then can be marked as delivered using a button displayed next to the other details, and reactivated using a similar button.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Add Item Modal - when a user clicks the "Add Item" button a modal pops up and inside there is a form to fill out the item's details.
 
-### `yarn build`
+Store Tracking - this dashboard has the list of all the stores, sums up the payment in each one of them, and the overall amount paid altogether.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Snackbar - the app has a snackbar, which adds more interaction with the user, gives him/her feedback for their actions, for example, an error snackbar message due to invalid inputs in an item's details filling, or a success message when an item has been added to the list.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<img width="50%" src="./apperror.png" />
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Have a look!**
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
