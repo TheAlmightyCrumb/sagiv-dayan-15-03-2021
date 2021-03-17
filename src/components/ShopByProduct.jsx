@@ -59,7 +59,6 @@ export default function ShopByProduct() {
   const visibleItems = getVisibleItems(products, viewState);
 
   useEffect(() => {
-    console.log("HELLO!");
     fetchStoreItems();
     setIsWaiting(false);
   }, []);
