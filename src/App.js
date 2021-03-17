@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { Container } from "@material-ui/core";
@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <Router basename="/">
       <SnackbarProvider
         autoHideDuration={2000}
         maxSnack={2}
