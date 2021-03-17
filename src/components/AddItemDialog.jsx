@@ -21,8 +21,8 @@ import {
   faTrashAlt,
   faSignInAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { KeyboardDatePicker } from "@material-ui/pickers";
-import { useSnackbar } from 'notistack';
+import { DatePicker } from "@material-ui/pickers";
+import { useSnackbar } from "notistack";
 import { addProduct } from "../actions";
 
 const useStyles = makeStyles((theme) => ({
@@ -67,19 +67,40 @@ export default function AddItemDialog({ open, handleClose }) {
     }));
   };
 
+  const sendErrorMessage = (message) => {
+    enqueueSnackbar(message, {
+      variant: "error",
+    });
+  };
+
   const handleClear = (e) => {
     e.preventDefault();
     setFormValues({
       name: "",
       price: "",
       store: "",
-      estimatedArrivalDate: "",
+      estimatedArrivalDate: new Date(),
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formValues.name.trim()) {
+      sendErrorMessage("Item's name is missing");
+      return;
+    }
+    if (!formValues.store.trim()) {
+      sendErrorMessage("Item's store is missing");
+      return;
+    }
+    if (!formValues.price.match(/^\d+$/g)) {
+      sendErrorMessage("Invalid price - digits only");
+      return;
+    }
     dispatch(addProduct(formValues));
+    enqueueSnackbar("Item has been added successfully", {
+      variant: "success"
+    })
     setFormValues({
       name: "",
       price: "",
@@ -88,10 +109,6 @@ export default function AddItemDialog({ open, handleClose }) {
     });
     handleClose();
   };
-
-  const checkInputs = () => {
-
-  }
 
   return (
     <Dialog
@@ -163,7 +180,7 @@ export default function AddItemDialog({ open, handleClose }) {
             </Grid>
             <Grid item sm={6} xs={6}>
               <FormControl>
-                <KeyboardDatePicker
+                <DatePicker
                   autoOk
                   disableToolbar
                   margin="dense"
@@ -173,9 +190,6 @@ export default function AddItemDialog({ open, handleClose }) {
                   value={formValues.estimatedArrivalDate}
                   format="dd/MM/yyyy"
                   disablePast
-                  InputAdornmentProps={{
-                    position: "start",
-                  }}
                   onChange={(date) => handleDateChange(date)}
                 />
               </FormControl>

@@ -1,9 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Button, TableCell, TableRow } from "@material-ui/core";
+import { Button, TableCell, TableRow, Zoom } from "@material-ui/core";
 import { format } from "date-fns";
+import { useSnackbar } from "notistack";
 import { toggleProduct } from "../actions";
 
 export default function ProductRow({ productDetails }) {
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const currency = useSelector((state) => state.currency);
   const {
@@ -17,6 +19,15 @@ export default function ProductRow({ productDetails }) {
 
   const handleToggleClick = (productId) => {
     dispatch(toggleProduct(productId));
+    enqueueSnackbar(
+      delivered
+        ? "Item has been reactivated"
+        : "Item has been marked as delivered",
+      {
+        variant: "info",
+        TransitionComponent: Zoom,
+      }
+    );
   };
 
   return (
@@ -28,7 +39,9 @@ export default function ProductRow({ productDetails }) {
       <TableCell align="right">
         {currency.view === "ILS" ? price * currency.value : price}
       </TableCell>
-      <TableCell align="right">{format(estimatedArrivalDate, "dd/MM/yyyy")}</TableCell>
+      <TableCell align="right">
+        {format(estimatedArrivalDate, "dd/MM/yyyy")}
+      </TableCell>
       <TableCell align="center">
         <Button
           onClick={() => handleToggleClick(productId)}

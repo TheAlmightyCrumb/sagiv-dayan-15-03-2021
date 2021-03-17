@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { Button, LinearProgress, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Button, Divider, LinearProgress, Typography } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddItemDialog from "./AddItemDialog";
@@ -9,7 +10,20 @@ import ProductTable from "./ProductTable";
 import SecondBar from "./SecondBar";
 import FakeStoreOptions from "./FakeStoreOptions";
 
+const useStyles = makeStyles((theme) => ({
+  addItemButton: {
+    background: theme.palette.primary.dark,
+    color: theme.palette.secondary.main,
+    borderRadius: "10px",
+    "&:hover": {
+      background: theme.palette.secondary.main,
+      color: theme.palette.primary.dark,
+    },
+  },
+}));
+
 export default function ShopByProduct() {
+  const classes = useStyles();
   const products = useSelector((state) => state.products);
   const viewState = useSelector((state) => state.viewState);
 
@@ -61,16 +75,20 @@ export default function ShopByProduct() {
           ))}
         </ProductTable>
       ) : (
-        <Typography align="center" variant="h5" style={{ marginTop: "10px" }}>
+        <Typography align="center" variant="h5" style={{ marginTop: "20px" }}>
           {viewState === "SHOW_DELIVERED"
             ? "Delivered items"
             : "Awaiting items"}{" "}
           list is empty, add items to fill it
         </Typography>
       )}
+      <br />
+      <Divider />
+      <br />
       <Button
         onClick={handleClickOpen}
         startIcon={<FontAwesomeIcon icon={faPlus} />}
+        className={classes.addItemButton}
       >
         Add Item
       </Button>

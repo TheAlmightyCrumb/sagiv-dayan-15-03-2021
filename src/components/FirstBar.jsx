@@ -25,29 +25,30 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: `2px solid ${theme.palette.secondary.light}`,
     cursor: "pointer",
     textDecoration: "none",
-    padding: "5px 0",
+    paddingBottom: "3px",
     marginRight: theme.spacing(2),
   },
   inactiveLink: {
     color: theme.palette.primary.light,
     cursor: "pointer",
     textDecoration: "none",
-    padding: "5px 0",
+    paddingBottom: "3px",
     marginRight: theme.spacing(2),
   },
   activeCurrency: {
     color: theme.palette.secondary.main,
     borderBottom: `2px dashed ${theme.palette.secondary.light}`,
     borderRadius: "0",
-    padding: "5px 0",
+    paddingBottom: "3px",
   },
   inactiveCurrency: {
     color: theme.palette.primary.light,
-    padding: "5px 0",
+    paddingBottom: "3px",
   },
   currencyTitle: {
-    padding: "5px 0",
     marginRight: theme.spacing(1),
+    color: theme.palette.primary.light,
+    paddingBottom: "3px"
   },
 }));
 
@@ -65,7 +66,7 @@ export default function FirstBar() {
     <div className={classes.root}>
       <AppBar position="static" className={classes.bar}>
         <Toolbar variant="dense">
-          <Grid container justify="space-between">
+          <Grid container justify="space-between" alignItems="center">
             <Grid item>
               <NavLink
                 className={

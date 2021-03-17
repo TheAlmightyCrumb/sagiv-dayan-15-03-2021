@@ -24,13 +24,20 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(fetchCurrencies, 30000);
+    const interval = setInterval(fetchCurrencies, 10000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <Router>
-      <SnackbarProvider dense maxSnack={2}>
+      <SnackbarProvider
+        autoHideDuration={2000}
+        maxSnack={2}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+      >
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <ThemeWrapper>
             <Container maxWidth="md">
