@@ -8,6 +8,7 @@ import {
   CircularProgress,
   Typography,
 } from "@material-ui/core";
+import { Alert, AlertTitle} from "@material-ui/lab";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddItemDialog from "./AddItemDialog";
@@ -105,7 +106,12 @@ export default function ShopByProduct() {
             <CircularProgress disableShrink />
           ) : fakeStoreItems.length > 0 ? (
             <FakeStoreOptions items={fakeStoreItems} />
-          ) : null}
+          ) : (
+            <Alert severity="error">
+              <AlertTitle>Error</AlertTitle>
+              Could not fetch store items
+            </Alert>
+          )}
         </Grid>
       </Grid>
     </>
