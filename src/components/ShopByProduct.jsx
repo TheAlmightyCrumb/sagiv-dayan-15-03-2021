@@ -1,7 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Divider, LinearProgress, Typography } from "@material-ui/core";
+import {
+  Button,
+  Divider,
+  Grid,
+  CircularProgress,
+  Typography,
+} from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddItemDialog from "./AddItemDialog";
@@ -61,10 +67,10 @@ export default function ShopByProduct() {
   useEffect(() => {
     fetchStoreItems();
     setIsWaiting(false);
-  }, []);
+  }, [fetchStoreItems]);
 
   return (
-      <>
+    <>
       <AddItemDialog open={open} handleClose={handleClose} />
       <SecondBar />
       {visibleItems.length > 0 ? (
@@ -84,18 +90,24 @@ export default function ShopByProduct() {
       <br />
       <Divider />
       <br />
-      <Button
-        onClick={handleClickOpen}
-        startIcon={<FontAwesomeIcon icon={faPlus} />}
-        className={classes.addItemButton}
-      >
-        Add Item
-      </Button>
-      {isWaiting ? (
-        <LinearProgress color="secondary" variant="query" />
-      ) : fakeStoreItems.length > 0 ? (
-        <FakeStoreOptions items={fakeStoreItems} />
-      ) : null}
+      <Grid container justify="space-between">
+        <Grid item>
+          <Button
+            onClick={handleClickOpen}
+            startIcon={<FontAwesomeIcon icon={faPlus} />}
+            className={classes.addItemButton}
+          >
+            Add Item
+          </Button>
+        </Grid>
+        <Grid item>
+          {isWaiting ? (
+            <CircularProgress disableShrink />
+          ) : fakeStoreItems.length > 0 ? (
+            <FakeStoreOptions items={fakeStoreItems} />
+          ) : null}
+        </Grid>
+      </Grid>
     </>
   );
 }
