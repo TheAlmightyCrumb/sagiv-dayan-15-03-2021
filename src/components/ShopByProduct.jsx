@@ -41,7 +41,10 @@ export default function ShopByProduct() {
   const fetchStoreItems = useCallback(() => {
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
-      .then((res) => setFakeStoreItems(res));
+      .then((res) => {
+        setFakeStoreItems(res);
+        setIsWaiting(false);
+      });
   }, []);
 
   const handleClickOpen = () => {
@@ -67,7 +70,6 @@ export default function ShopByProduct() {
 
   useEffect(() => {
     fetchStoreItems();
-    setIsWaiting(false);
   }, [fetchStoreItems]);
 
   return (
